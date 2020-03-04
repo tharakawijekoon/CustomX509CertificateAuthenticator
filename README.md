@@ -25,4 +25,6 @@ Copy and place the built JAR artifact from the /target/org.wso2.custom.authentic
        <Parameter name="LoginClaimURIs">http://wso2.org/claims/emailaddress,http://wso2.org/claims/mobile</Parameter>
  </AuthenticatorConfig>
  ```
+Restart the server
 
+In order to use this custom authenticator for x509 Certificate-based authentication, you should select the CustomX509Certificate from the drop-down when configuring the service provider application.
