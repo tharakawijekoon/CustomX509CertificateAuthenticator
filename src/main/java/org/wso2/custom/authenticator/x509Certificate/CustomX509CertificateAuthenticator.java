@@ -13,6 +13,7 @@ public class CustomX509CertificateAuthenticator extends X509CertificateAuthentic
     private static final Log log = LogFactory.getLog(CustomX509CertificateAuthenticator.class);
     public static final String AUTHENTICATOR_FRIENDLY_NAME = "CustomX509Certificate";
     public static final String AUTHENTICATOR_NAME = "CustomX509CertificateAuthenticator";
+    public static final String USER_STORE_DOMAIN = "UserStoreDomain";
 
     @Override
     protected String getMatchedAlternativeName(X509Certificate cert, AuthenticationContext authenticationContext)
@@ -22,6 +23,15 @@ public class CustomX509CertificateAuthenticator extends X509CertificateAuthentic
 
         if (log.isDebugEnabled()) {
             log.debug("@carbon.super tenant domain appended to alternativeName");
+        }
+
+        String userStoreDomain = getAuthenticatorConfig().getParameterMap().get(USER_STORE_DOMAIN);
+
+        if (userStoreDomain != null && userStoreDomain.trim().length() > 0 ) {
+            alternativeName = userStoreDomain + "/" + alternativeName;
+            if (log.isDebugEnabled()) {
+                log.debug("Restricting search to single user store : " + userStoreDomain);
+            }
         }
 
         return new StringBuilder(alternativeName).append("@carbon.super").toString();
