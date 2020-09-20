@@ -28,3 +28,9 @@ Copy and place the built JAR artifact from the /target/org.wso2.custom.authentic
 Restart the server
 
 In order to use this custom authenticator for x509 Certificate-based authentication, you should select the CustomX509Certificate from the drop-down when configuring the service provider application.
+
+To restrict the x509 authentication to be carried out with a single secondary user store. you can add the following property to the custom authenticator.
+```
+          <Parameter name="UserStoreDomain">SECONDARY</Parameter>
+```
+This will limit x509 authentication to the specified UserStoreDomain and even if the other user stores fail, it would not have any effect.
